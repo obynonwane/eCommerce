@@ -8,7 +8,7 @@ class Deposit extends Model
 {
     //
     protected $fillable = [
-        'user_id', 'amount_deposited',
+        'user_id', 'amount','status','domain','reference','gateway_response','paid_at','payment_method','currency'
     ];
 
 

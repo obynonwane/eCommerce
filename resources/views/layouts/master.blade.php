@@ -12,13 +12,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>AdminLTE 3 | Starter</title>
+   <!-- Favicon Icon -->
+   <link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon.png">
+  <link rel="icon" type="image/png" href="{{ url('img/logo.png') }} ">
+
+  <title>My Wallet|Ecommerce</title>
 
     <link rel="stylesheet" href="/css/app.css">
 </head>
 <body class="hold-transition sidebar-mini">
+ 
 <div class="wrapper" id="app">
-
+  
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
      <!-- Left navbar links -->
@@ -51,7 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <a href="index3.html" class="brand-link">
       <img src="./img/logo.png" alt="LaraStart Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Wallet/Dashboard</span>
+      <span class="brand-text font-weight-light">Wallet/Dashboard </span>
     </a>
 
     <!-- Sidebar -->
@@ -122,6 +127,50 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </router-link>
                 </li>
 
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();">
+                           <i class="nav-icon fas fa-power-off red"  ></i>
+                        <p>{{ __('Fund My Account') }}</p>
+                    </a>
+
+                    <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
+                        <div class="row" style="margin-bottom:40px;">
+                        <div class="col-md-8 col-md-offset-2">
+                            <input type="hidden" name="email" value="{{Auth::user()->email}}"> {{-- required --}}
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}"> {{-- required --}}
+                            <input type="hidden" name="orderID" value="345">
+                            <input type="hidden" name="amount" value="1000000"> {{-- required in kobo --}}
+                            <input type="hidden" name="quantity" value="3">
+                            <input type="hidden" name="metadata" value="{{ json_encode($array = [
+                              'user_id' => Auth::user()->id,
+                              'amount' => 10000,
+                              'balance' => Auth::user()->current_balance,
+                            ]) }}" > {{-- For other necessary things you want to add to your payload. it is optional though --}}
+                            <input type="hidden" name="reference" value="{{ Paystack::genTranxRef() }}"> {{-- required --}}
+                            <input type="hidden" name="key" value="{{ config('paystack.secretKey') }}"> {{-- required --}}
+                            {{ csrf_field() }} {{-- works only when using laravel 5.1, 5.2 --}}
+
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}"> {{-- employ this in place of csrf_field only in laravel 5.0 --}}
+
+
+                            <p>
+                            <button class="btn btn-success btn-lg btn-block" type="submit" value="Pay Now!" data-toggle="tooltip" data-placement="top" title="You can only deposit N10000 at a time">
+                            <i class="fa fa-plus-circle fa-sm"></i>Fund Wallet !.  
+                            </button>
+                            </p>
+                        </div>
+                        </div>
+                </form>
+                </li>
+
+
+
+
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
@@ -133,6 +182,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
                     </form>
+                    <payment-component></payment-component>
                 </li>
         
         </ul>
@@ -149,10 +199,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
+       <h5>Wallet Balance: <span class="btn btn-success">N{{Auth::user()->current_balance}}</span></h5> 
+      <br><hr>
         <!--Router View -->
         <router-view></router-view>
         <!-- set progressbar -->
-        <vue-progress-bar></vue-progress-bar>
+        <!-- <vue-progress-bar></vue-progress-bar> -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -173,6 +225,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
 <script src="/js/app.js"></script>
 </body>
 </html>

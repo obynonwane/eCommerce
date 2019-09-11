@@ -15,8 +15,8 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('sender_id');
-            $table->integer('receiver_id');
+            $table->integer('sender_id')->references('id')->on('users');;
+            $table->integer('receiver_id')->references('id')->on('users');;
             $table->double('amount_sent',15,2)->nullable();
             $table->double('amount_received',15,2)->nullable();
             $table->timestamps();
