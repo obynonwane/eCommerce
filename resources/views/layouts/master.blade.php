@@ -130,12 +130,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();">
-                           <i class="nav-icon fas fa-power-off red"  ></i>
-                        <p>{{ __('Fund My Account') }}</p>
-                    </a>
+                    
 
                     <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
                         <div class="row" style="margin-bottom:40px;">
@@ -182,7 +177,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
                     </form>
-                    <payment-component></payment-component>
+                    
                 </li>
         
         </ul>
@@ -201,6 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
        <h5>Wallet Balance: <span class="btn btn-success">N{{Auth::user()->current_balance}}</span></h5> 
       <br><hr>
+        @yield('content')
         <!--Router View -->
         <router-view></router-view>
         <!-- set progressbar -->
@@ -220,7 +216,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2019 <a href="/">Obinna Johnson - Pre-Interview Evaluation Project: Wallet|Ecommerce Profile</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
