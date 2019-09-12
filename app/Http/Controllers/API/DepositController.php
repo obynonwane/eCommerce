@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Deposit;
+use DB;
+use Auth;
 
 class DepositController extends Controller
 {
@@ -15,8 +17,13 @@ class DepositController extends Controller
      */
     public function index()
     {
+        
+
+       //return Deposit::all()->where('user_id', 1)->toArray();
         //
-        return Deposit::latest()->paginate(20);
+        // return $deposits = DB::table('deposits')
+        //         ->where('user_id', Auth::user()->id)
+        //         ->get();
     }
 
     /**

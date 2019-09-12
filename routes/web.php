@@ -24,4 +24,8 @@ Route::post('/pay', 'PaymentController@redirectToGateway')->name('pay');
 Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
 
 
+//show all deposits
+Route::get('/deposits', 'HomeController@deposits');
+
+
 Route::get('{path}', 'HomeController@index')->where( 'path' , '([A-z\d\-\/_.]+)?' ); //redirects you to the Index

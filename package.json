@@ -19,13 +19,13 @@
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.15.2",
+        "sass": "^1.22.12",
         "sass-loader": "^7.1.0",
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "admin-lte": "^3.0.0-alpha.2",
+        "admin-lte": "^3.0.0-rc.1",
         "moment": "^2.24.0",
         "vform": "^1.0.1",
         "vue-paystack": "^2.0.2",

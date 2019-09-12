@@ -16,7 +16,8 @@ import VueRouter from 'vue-router'          //import Vue Router
 Vue.use(VueRouter)                          //Use Vue Router
 
  //Route Array and Corresponding Component 
-let routes = [                           
+let routes = [    
+    { path: '/home', component: require('./components/DepositHistory.vue').default },                       
     { path: '/dashboard', component: require('./components/Dashboard.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },

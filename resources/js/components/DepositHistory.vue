@@ -4,7 +4,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Deposits History</h3>
+                <h3 class="card-title">Your Deposits Histories</h3>
 
                 <div class="card-tools">
                     
@@ -67,7 +67,7 @@
         methods:{
 
             loadDeposits() {
-                axios.get("api/deposit").then(({ data }) => (this.deposits = data.data))
+                axios.get("/deposits").then(({ data }) => (this.deposits = data))
             },
             
         },
