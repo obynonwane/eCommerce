@@ -18,7 +18,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>My Wallet|Ecommerce</title>
 
-    <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/app.css">
+
+  <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body class="hold-transition sidebar-mini">
  
@@ -90,9 +92,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cog green"></i>
+              <i class="nav-icon fas fa-gift green"></i>
               <p>
-                Management
+                Gift a Friend
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -100,22 +102,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <router-link  to="/users" class="nav-link">
                   <i class="fas fa-users nav-icon"></i>
-                  <p>Users</p>
+                  <p>Locate Friend</p>
                 </router-link>
               </li>
              
             </ul>
           </li>
 
-          <li class="nav-item">
-                    <router-link to="/developer" class="nav-link">
-                    <i class="nav-icon fas fa-cogs"></i>
-                    <p>
-                       Developer
-                        
-                    </p>
-                    </router-link>
-                </li>
+        
 
                 <li class="nav-item">
                     <router-link to="/profile" class="nav-link">
@@ -127,6 +121,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </router-link>
                 </li>
 
+
+                <br>
 
 
                 <li class="nav-item">
@@ -153,8 +149,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 
                             <p>
-                            <button class="btn btn-success btn-lg btn-block" type="submit" value="Pay Now!" data-toggle="tooltip" data-placement="top" title="You can only deposit N10000 at a time">
-                            <i class="fa fa-plus-circle fa-sm"></i>Fund Wallet !.  
+                            <button class="btn btn-success btn-sm btn-block" type="submit" value="Pay Now!" data-toggle="tooltip" data-placement="top" title="You can only deposit N10000 at a time">
+                            <i class="fa fa-plus-circle fa-sm"></i><span style="font-size:1.3em;">Fund my Wallet.</span>  
                             </button>
                             </p>
                         </div>
@@ -194,7 +190,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-       <h5>Wallet Balance: <span class="btn btn-default" style="font-size:1.6rem;">N{{Auth::user()->current_balance}}</span></h5> 
+       <h5 class="w-balance">
+        Wallet Balance: <span class="btn btn-default" style="font-size:1.6rem;">N{{Auth::user()->current_balance}}</span>
+       </h5> 
       <br><hr>
         
         <!--Router View -->

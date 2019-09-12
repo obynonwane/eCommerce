@@ -27,5 +27,8 @@ Route::get('/payment/callback', 'PaymentController@handleGatewayCallback');
 //show all deposits
 Route::get('/deposits', 'HomeController@deposits');
 
+//get yourprofile details 
+Route::get('/profiledetail', 'HomeController@getProfile');
+
 
 Route::get('{path}', 'HomeController@index')->where( 'path' , '([A-z\d\-\/_.]+)?' ); //redirects you to the Index
