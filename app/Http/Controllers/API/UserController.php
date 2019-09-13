@@ -51,6 +51,12 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $user = User::findOrFail($id);
+        $user->current_balance = $request->current_balance + 10000;
+        $user->save();
+        // $req = $user->update($request->all());
+        // $b = $request->current_balance + 10000;
+        return response()->json($user->current_balance);
     }
 
     /**

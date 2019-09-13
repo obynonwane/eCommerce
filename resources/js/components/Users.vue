@@ -60,37 +60,36 @@
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" @submit.prevent="editmode ? updateUser() : createUser()">
+                <form action="" @submit.prevent="updateUser()">
                     <div class="modal-body">
                     
                                 <div class="form-group">
                                     <input v-model="form.name" type="text" name="name"
                                         placeholder="Name"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" disabled>
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" >
                                     <has-error :form="form" field="name"></has-error>
                                 </div>
 
                                 <div class="form-group">
                                     <input v-model="form.email" type="text" name="email"
                                         placeholder="Email"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" disabled>
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
                                     <has-error :form="form" field="email"></has-error>
-                                </div>
+                                </div>   
 
 
-                                <div class="form-group">
-                                  <select class="browser-default custom-select">
-                                    <option selected>Select Amount</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                                </div>                         
-                             
+                                  <div class="form-group">
+                                    <input v-model="form.current_balance" type="text" name="current_balance"
+                                        placeholder="Current Balance"
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('current_balance') }">
+                                    <has-error :form="form" field="current_balance"></has-error>
+                                </div>    
 
-                              
 
-                                
+                                   <div class="form-group">
+                                    <input v-model="funds" type="text" name="funds" class="form-control"  placeholder="Funds Transfer" >
+                                   
+                                </div>                        
 
 
                     </div>
@@ -120,6 +119,7 @@
           return{
             editmode:false,
             users : {},
+            funds:'',
             form:new Form({
                     id:'',
                     name: '',
@@ -140,6 +140,21 @@
                 $('#addNew').modal('show')
                 this.form.fill(user)
             },
+
+             updateUser(){
+
+                let bal = this.form.current_balance + this.funds;
+                let new_bal = this.form.current_balance = bal;
+                console.log(new_bal);
+                // console.log('Editting Data');
+                this.form.put('api/user/'+this.form.id)
+                .then(() => {                  
+                    
+                })
+                .catch(() => {
+                    
+                })
+            }
         },
 
          created(){
