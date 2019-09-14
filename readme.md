@@ -14,4 +14,4 @@
         <li>Enjoy Your E-wallet and start gifting cash prices to your friends</li>
 </ul>   
 
-<img src="../img/logo.png">
+<img src="https://github.com/obynonwane/eCommerce/img/Logo.png">
