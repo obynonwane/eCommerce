@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Transaction;
 use App\User;
 use Auth;
 use DB;
@@ -21,13 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
-        //dd(Auth::user()->id);
-        // return  User::all()->get();
-        
         return $users = User::all()->where('id', '!=', Auth::user()->id);    
-        
-        //return User::latest()->paginate(20);
     }
 
     /**
@@ -52,6 +47,10 @@ class UserController extends Controller
         //
     }
 
+    public function profile(){
+        return auth('api')->user();
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -61,15 +60,38 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //
+        
         //finds your friend and update his/her account
-        $user = User::findOrFail($id);
-        $user->current_balance = $request->current_balance;
-        $user->save();
+        $receiver = User::findOrFail($id);
+        
+        //get the amount sent to friend
+        $amount_sent = abs($receiver->current_balance - $request->current_balance);
 
+        
+        //update friend account balance
+        $receiver->current_balance = $request->current_balance;
+        $receiver->save();
+
+
+        //update your new balance after deduction
+        $sender = User::findOrFail(Auth::user()->id);
+        $sender->current_balance = abs(Auth::user()->current_balance - $amount_sent);
+        $sender->save();
+
+
+        //Insert New transactions table
+        $transaction = new Transaction;
+        $transaction->sender_id = $sender->id;
+        $transaction->receiver_id = $receiver->id;
+        $transaction->amount_sent = $amount_sent;
+        $transaction->amount_received = $amount_sent;
+        $transaction->save();
+        
 
         // $req = $user->update($request->all());
         // $b = $request->current_balance + 10000;
-        return response()->json($user->current_balance);
+        return response()->json($sender->current_balance);
     }
 
     /**
