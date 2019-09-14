@@ -24,7 +24,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="user in users" :key="user.id">
+                    <tr v-for="user in users.data" :key="user.id">
                       <td>{{user.id}}</td>
                       <td>{{user.name|upText}}</td>
                       <td>{{user.email}}</td>
@@ -43,6 +43,9 @@
                 </table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -131,15 +134,23 @@
         },
 
         methods:{
+          getResults(page = 1) {
+            axios.get('api/user?page=' + page)
+              .then(response => {
+                this.users = response.data;
+              });
+          },
           getProfile(){  //this method get your profile details
                 axios.get("/profiledetail").then(({ data }) => (this.profile = data))
             },
           loadUsers(){   //this methos loads all system users
+          this.$Progress.start()
                 axios.get('api/user')
                   .then(({ data }) => (this.users = data))
                   .catch({
                     
                   })
+          this.$Progress.finish()
             },
 
              editModal(user){ //this method displays the modal for fund transfer
@@ -151,17 +162,25 @@
 
              updateUser(){  //This Method Funds a Freind 
 
+              this.$Progress.start()
+
                 let bal = parseFloat(this.form.current_balance) + parseFloat(this.funds); //Add Friend Cur_bal and Fund to be transfered
                 let new_bal = this.form.current_balance = bal; //assigns the friend total bal to form to be updated
-                console.log(new_bal);
-                console.log(this.profile.current_balance);
+                
                 if(this.profile.current_balance < this.funds){ //checks if the fund you are about to transfer is greater that your current_bal
                   alert('Invalid Figure');
 
                 }else{
                     this.form.put('api/user/'+this.form.id)
-                      .then(() => {                  
-                    
+                      .then(() => {  
+                        $('#addNew').modal('hide') //closes modal on funds transfer  
+
+                          toast.fire({  //dislays success of funds transfer --sweeetalert
+                          type: 'success',
+                          title: 'Funds Transfered Succesfully'
+                        })
+
+                        Fire.$emit('fundTransfer') //create an Event Listening cale fundTransfer
                       })
                     .catch(() => {
                     
@@ -169,13 +188,30 @@
                 }
                
                 
-              
+              this.$Progress.finish()
             }
         },
 
          created(){  //this method load some method required on component creation
+
+             Fire.$on('searching',() => { //Event Listenings ..Listen to event 'searching' and perform an action 
+
+                   let query = this.$parent.search;   //accessing the parent data (app.js) .i.e the serachTerm
+                   axios.get('api/findUser?q=' + query)
+                        .then(( data ) => {
+                          this.users = data.data
+                          })
+                        .catch({
+                    
+                        })
+            });
+
               this.getProfile(); 
               this.loadUsers();
+
+               Fire.$on('fundTransfer',() => { //Event Listenings ..Listen to event 'fundTransfer' and perform an action 
+                this.loadUsers();
+            });
               
             }
 

@@ -7,6 +7,34 @@ import { Form, HasError, AlertError } from 'vform' //import Vform for form valid
 //import moment for date formating  
 import moment from 'moment';
 
+//---------------------------Sweet Alert -------------//
+import swal from 'sweetalert2'
+window.swal = swal 
+
+
+const toast = swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+})
+
+window.toast = toast;
+//-------------------------Close Sweet Alert ------------//
+
+
+//----------Global Event Listening Object (i.e)For component Communication--------------//
+
+  window.Fire = new Vue()
+
+//---------CLose Global Event Listenig Object ----------//
+
+//--------------Register Laravel Vue Pagination ---------//
+Vue.component('pagination', require('laravel-vue-pagination'));
+
+//-------------End Laravel Vue Pagination -------------//
+
+
 //Register a global Component for V-form 
 window.Form = Form;
 Vue.component(HasError.name, HasError)
@@ -15,10 +43,23 @@ Vue.component(AlertError.name, AlertError)
 import VueRouter from 'vue-router'          //import Vue Router
 Vue.use(VueRouter)                          //Use Vue Router
 
+
+//------------------------------ProgressBar ---------------//
+import VueProgressBar from 'vue-progressbar'
+
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '10px'
+})
+
+//--------------------------------Close Progress Bar -----------//
+
  //Route Array and Corresponding Component 
 let routes = [    
     { path: '/home', component: require('./components/DepositHistory.vue').default },                       
-    { path: '/dashboard', component: require('./components/Dashboard.vue').default },
+    { path: '/sent', component: require('./components/SentHistory.vue').default },
+    { path: '/received', component: require('./components/ReceivedHistory.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
   ]
@@ -66,5 +107,13 @@ Vue.component('deposit-component', require('./components/DepositHistory.vue').de
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    data:{
+      search: '',
+    },
+    methods:{
+      searchit(){
+        Fire.$emit('searching'); //create a custom event ..You can listen to this cistome event any where in our application
+      }
+    }
 });

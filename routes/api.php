@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('user','API\UserController');
 Route::apiResource('deposit','API\DepositController');
+Route::apiResource('transaction','API\TransactionController');
+Route::get('get_received','API\TransactionController@getReceived');
+Route::get('findUser','API\UserController@search');

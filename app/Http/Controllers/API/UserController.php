@@ -22,7 +22,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $users = User::all()->where('id', '!=', Auth::user()->id);    
+
+        return User::latest()->where('id', '!=', Auth::user()->id)->paginate(5);
+        //return $users = User::all()->where('id', '!=', Auth::user()->id);    
     }
 
     /**
@@ -91,7 +93,7 @@ class UserController extends Controller
 
         // $req = $user->update($request->all());
         // $b = $request->current_balance + 10000;
-        return response()->json($sender->current_balance);
+        //return response()->json($sender->current_balance);
     }
 
     /**
@@ -103,5 +105,18 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    //search User table 
+    public function search(){
+                
+            if($search = \Request::get('q')){
+                $users = User::where(function($query) use ($search){
+                    $query->where('name', 'LIKE', '%search%')
+                          ->orWhere('email', 'LIKE', "%search%");
+                })->paginate(20);
+            }
+                
+        return $users;
     }
 }
