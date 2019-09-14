@@ -13,3 +13,5 @@
         <li>Run php artisan migrate</li>
         <li>Enjoy Your E-wallet and start gifting cash prices to your friends</li>
 </ul>   
+
+<img src="/img/logo.png">
