@@ -1,4 +1,4 @@
-<h1>Installation</hi>
+<h1>Installation</h1>
 <ul>
         <li>Clone the repo git clone https://github.com/obynonwane/eCommerce.git</li>
         <li>cd to project folder.</li>
@@ -8,4 +8,4 @@
         <li>Run npm install</li>
         <li>Run php artisan migrate</li>
         <li>Done !!! Enjoy Customizing and building awesome app</li>
-</ul>
+</ul>   
