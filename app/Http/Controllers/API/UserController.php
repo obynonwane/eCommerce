@@ -5,9 +5,15 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Auth;
+use DB;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,12 @@ class UserController extends Controller
     public function index()
     {
         //
-        return User::latest()->paginate(20);
+        //dd(Auth::user()->id);
+        // return  User::all()->get();
+        
+        return $users = User::all()->where('id', '!=', Auth::user()->id);    
+        
+        //return User::latest()->paginate(20);
     }
 
     /**
@@ -50,10 +61,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //finds your friend and update his/her account
         $user = User::findOrFail($id);
-        $user->current_balance = $request->current_balance + 10000;
+        $user->current_balance = $request->current_balance;
         $user->save();
+
+
         // $req = $user->update($request->all());
         // $b = $request->current_balance + 10000;
         return response()->json($user->current_balance);

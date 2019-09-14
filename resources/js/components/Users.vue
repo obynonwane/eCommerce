@@ -117,6 +117,7 @@
 
         data(){
           return{
+            profile :{},
             editmode:false,
             users : {},
             funds:'',
@@ -130,35 +131,52 @@
         },
 
         methods:{
-          loadUsers(){
-                axios.get("api/user").then(({ data }) => (this.users = data.data))
+          getProfile(){  //this method get your profile details
+                axios.get("/profiledetail").then(({ data }) => (this.profile = data))
+            },
+          loadUsers(){   //this methos loads all system users
+                axios.get('api/user')
+                  .then(({ data }) => (this.users = data))
+                  .catch({
+                    
+                  })
             },
 
-             editModal(user){
+             editModal(user){ //this method displays the modal for fund transfer
                 this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show')
                 this.form.fill(user)
             },
 
-             updateUser(){
+             updateUser(){  //This Method Funds a Freind 
 
-                let bal = this.form.current_balance + this.funds;
-                let new_bal = this.form.current_balance = bal;
+                let bal = parseFloat(this.form.current_balance) + parseFloat(this.funds); //Add Friend Cur_bal and Fund to be transfered
+                let new_bal = this.form.current_balance = bal; //assigns the friend total bal to form to be updated
                 console.log(new_bal);
-                // console.log('Editting Data');
-                this.form.put('api/user/'+this.form.id)
-                .then(() => {                  
+                console.log(this.profile.current_balance);
+                if(this.profile.current_balance < this.funds){ //checks if the fund you are about to transfer is greater that your current_bal
+                  alert('Invalid Figure');
+
+                }else{
+                    this.form.put('api/user/'+this.form.id)
+                      .then(() => {                  
                     
-                })
-                .catch(() => {
+                      })
+                    .catch(() => {
                     
-                })
+                    })
+                }
+               
+                
+              
             }
         },
 
-         created(){
+         created(){  //this method load some method required on component creation
+              this.getProfile(); 
               this.loadUsers();
+              
             }
 
     }
