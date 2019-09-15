@@ -15,4 +15,4 @@
 </ul>   
 
 <!-- <img src="https://github.com/obynonwane/eCommerce/tree/master/public/img/logo.png"> -->
-![Image of Logo](https://github.com/obynonwane/eCommerce/tree/master/public/img/logo.png)
+<!-- ![Image of Logo](https://github.com/obynonwane/eCommerce/tree/master/public/img/logo.png) -->
