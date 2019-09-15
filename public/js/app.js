@@ -62599,7 +62599,7 @@ var render = function() {
                     staticClass: "modal-title",
                     attrs: { id: "addNewLabel" }
                   },
-                  [_vm._v("Gift the Person")]
+                  [_vm._v("Gift this Person some cash")]
                 ),
                 _vm._v(" "),
                 _vm._m(2)
@@ -62636,7 +62636,8 @@ var render = function() {
                           attrs: {
                             type: "text",
                             name: "name",
-                            placeholder: "Name"
+                            placeholder: "Name",
+                            disabled: ""
                           },
                           domProps: { value: _vm.form.name },
                           on: {
@@ -62674,7 +62675,8 @@ var render = function() {
                           attrs: {
                             type: "text",
                             name: "email",
-                            placeholder: "Email"
+                            placeholder: "Email",
+                            disabled: ""
                           },
                           domProps: { value: _vm.form.email },
                           on: {
@@ -62712,9 +62714,10 @@ var render = function() {
                             "is-invalid": _vm.form.errors.has("current_balance")
                           },
                           attrs: {
-                            type: "text",
+                            type: "hidden",
                             name: "current_balance",
-                            placeholder: "Current Balance"
+                            placeholder: "Current Balance",
+                            disabled: ""
                           },
                           domProps: { value: _vm.form.current_balance },
                           on: {
@@ -62750,9 +62753,9 @@ var render = function() {
                         ],
                         staticClass: "form-control",
                         attrs: {
-                          type: "text",
+                          type: "number",
                           name: "funds",
-                          placeholder: "Funds Transfer"
+                          placeholder: "Enter Amount You intent Giving out Here"
                         },
                         domProps: { value: _vm.funds },
                         on: {

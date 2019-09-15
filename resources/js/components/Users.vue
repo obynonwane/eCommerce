@@ -58,7 +58,7 @@
                 <div class="modal-content">
                 <div class="modal-header">
                     
-                    <h5 class="modal-title" v-show="editmode" id="addNewLabel">Gift the Person</h5>
+                    <h5 class="modal-title" v-show="editmode" id="addNewLabel">Gift this Person some cash</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
@@ -69,28 +69,28 @@
                                 <div class="form-group">
                                     <input v-model="form.name" type="text" name="name"
                                         placeholder="Name"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" >
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" disabled>
                                     <has-error :form="form" field="name"></has-error>
                                 </div>
 
                                 <div class="form-group">
                                     <input v-model="form.email" type="text" name="email"
                                         placeholder="Email"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" disabled>
                                     <has-error :form="form" field="email"></has-error>
                                 </div>   
 
 
                                   <div class="form-group">
-                                    <input v-model="form.current_balance" type="text" name="current_balance"
+                                    <input v-model="form.current_balance" type="hidden" name="current_balance"
                                         placeholder="Current Balance"
-                                        class="form-control" :class="{ 'is-invalid': form.errors.has('current_balance') }">
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('current_balance') }" disabled>
                                     <has-error :form="form" field="current_balance"></has-error>
                                 </div>    
 
 
                                    <div class="form-group">
-                                    <input v-model="funds" type="text" name="funds" class="form-control"  placeholder="Funds Transfer" >
+                                    <input v-model="funds" type="number" name="funds" class="form-control"  placeholder="Enter Amount You intent Giving out Here" >
                                    
                                 </div>                        
 
