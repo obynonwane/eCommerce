@@ -23,3 +23,4 @@ Route::apiResource('deposit','API\DepositController');
 Route::apiResource('transaction','API\TransactionController');
 Route::get('get_received','API\TransactionController@getReceived');
 Route::get('findUser','API\UserController@search');
+Route::get('profile','API\UserController@profile');

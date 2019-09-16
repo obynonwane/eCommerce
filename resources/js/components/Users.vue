@@ -168,7 +168,17 @@
                 let new_bal = this.form.current_balance = bal; //assigns the friend total bal to form to be updated
                 
                 if(this.profile.current_balance < this.funds){ //checks if the fund you are about to transfer is greater that your current_bal
-                  alert('Invalid Figure');
+                  
+                  $('#addNew').modal('hide') //closes modal on funds transfer  
+                    swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Invalid Amount Entered! Check if you have up to that amount',
+                    footer: '<a>Or Fund your Walet</a>'
+                  })
+                  
+                   
+                   this.loadUsers();
 
                 }else{
                     this.form.put('api/user/'+this.form.id)
